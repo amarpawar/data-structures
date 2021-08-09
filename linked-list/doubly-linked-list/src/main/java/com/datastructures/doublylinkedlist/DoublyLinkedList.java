@@ -84,7 +84,7 @@ public class DoublyLinkedList<T>
     {
         if (Objects.nonNull(head))
         {
-            if (index == 1 || Objects.isNull(head.getNext()))
+            if (index == 0 || Objects.isNull(head.getNext()))
             {
                 removeFromStart();
                 return;
