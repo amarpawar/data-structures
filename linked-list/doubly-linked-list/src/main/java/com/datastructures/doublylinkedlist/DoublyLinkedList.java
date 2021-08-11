@@ -1,6 +1,7 @@
 package com.datastructures.doublylinkedlist;
 
 import java.util.Objects;
+import java.util.Optional;
 
 public class DoublyLinkedList<T>
 {
@@ -21,12 +22,12 @@ public class DoublyLinkedList<T>
 
         Node<T> tempHead = head;
 
-        while (Objects.nonNull(tempHead.getNext()))
+        while (Objects.nonNull(tempHead.next))
         {
-            tempHead = tempHead.getNext();
+            tempHead = tempHead.next;
         }
 
-        tempHead.setNext(new Node<>(data, null, tempHead));
+        tempHead.next = new Node<>(data, null, tempHead);
     }
 
     public void add(T data, int index)
@@ -108,6 +109,50 @@ public class DoublyLinkedList<T>
             currentNode.getPrevious().setNext(currentNode.getNext());
             currentNode.getNext().setPrevious(currentNode.getPrevious());
         }
+    }
+
+    public Optional<Node<T>> get(int index)
+    {
+        if (Objects.nonNull(head))
+        {
+            if (index == 0)
+            {
+                return Optional.of(head);
+            }
+
+            int counter = 0;
+            Node<T> temp = head;
+
+            while (Objects.nonNull(temp.getNext()) && counter < index)
+            {
+                temp = temp.getNext();
+                counter++;
+            }
+
+            return Optional.of(temp);
+        }
+
+        return Optional.empty();
+    }
+
+    public Node<T> reverse()
+    {
+        if (Objects.nonNull(head) && Objects.nonNull(head.getNext()))
+        {
+            Node<T> current = head;
+
+            while (Objects.nonNull(current))
+            {
+                head = current.getPrevious();
+                current.setPrevious(current.getNext());
+                current.setNext(head);
+                current = current.getPrevious();
+            }
+
+            return head;
+        }
+
+        return null;
     }
 
     public Node<T> getHead()

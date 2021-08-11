@@ -157,7 +157,6 @@ public class Application
         if (Objects.isNull(headNode))
         {
             System.out.println("List is empty. Enter any key to go back to the main menu...");
-            scanner.nextLine();
         }
         else
         {
@@ -174,8 +173,9 @@ public class Application
             }
 
             System.out.println("\nEnter any key to go back to the main menu...");
-            scanner.nextLine();
         }
+
+        scanner.nextLine();
     }
 
     public static void clearConsole()
