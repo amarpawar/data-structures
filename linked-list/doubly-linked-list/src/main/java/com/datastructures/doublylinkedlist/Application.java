@@ -1,6 +1,8 @@
 package com.datastructures.doublylinkedlist;
 
+import javax.swing.text.html.Option;
 import java.util.Objects;
+import java.util.Optional;
 import java.util.Scanner;
 
 public class Application
@@ -15,7 +17,7 @@ public class Application
         {
             option = showMenuAndGetOption(scanner);
 
-            if (option == 4)
+            if (option == 6)
             {
                 break;
             }
@@ -31,6 +33,11 @@ public class Application
                 case 3:
                     listAllEmployees(doublyLinkedList, scanner);
                     break;
+                case 4:
+                    getEmployee(doublyLinkedList, scanner);
+                    break;
+                case 5:
+                    reverseList(doublyLinkedList, scanner);
                 default:
                     break;
             }
@@ -47,7 +54,9 @@ public class Application
         System.out.println("\t1. Add Employee");
         System.out.println("\t2. Remove Employee");
         System.out.println("\t3. List all the employees");
-        System.out.println("\t4. Exit\n");
+        System.out.println("\t4. Get employee");
+        System.out.println("\t5. Reverse the list");
+        System.out.println("\t6. Exit\n");
 
         System.out.print("Select an option: ");
         int option = scanner.nextInt();
@@ -175,6 +184,54 @@ public class Application
             System.out.println("\nEnter any key to go back to the main menu...");
         }
 
+        scanner.nextLine();
+    }
+
+    public static void getEmployee(DoublyLinkedList<Employee> doublyLinkedList, Scanner scanner)
+    {
+        DoublyLinkedList.Node<Employee> headNode = doublyLinkedList.getHead();
+
+        clearConsole();
+
+        if (Objects.isNull(headNode))
+        {
+            System.out.println("List is empty. Enter any key to go back to the main menu...");
+        }
+        else
+        {
+            System.out.println("====================================================");
+            System.out.println("Get employee by index");
+            System.out.println("====================================================\n");
+
+            System.out.println("\t\tEnter index: ");
+            int index = scanner.nextInt();
+            scanner.nextLine();
+
+            Optional<DoublyLinkedList.Node<Employee>> employeeNode = doublyLinkedList.get(index);
+
+            if (employeeNode.isEmpty())
+            {
+                System.out.println("Employee not found at index " + index);
+            }
+            else
+            {
+                Employee employee = employeeNode.get().getData();
+                System.out.println("\nEmployee details: ");
+                System.out.println("\tId: " + employee.getId());
+                System.out.println("\tName: " + employee.getName());
+            }
+        }
+
+        System.out.println("\nEnter any key to go back to the main menu...");
+        scanner.nextLine();
+    }
+
+    public static void reverseList(DoublyLinkedList<Employee> doublyLinkedList, Scanner scanner)
+    {
+        clearConsole();
+        doublyLinkedList.reverse();
+        System.out.println("List reversed successfully.");
+        System.out.println("\nEnter any key to go back to the main menu...");
         scanner.nextLine();
     }
 

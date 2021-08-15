@@ -141,12 +141,21 @@ public class DoublyLinkedList<T>
         {
             Node<T> current = head;
 
-            while (Objects.nonNull(current))
+            while(true)
             {
                 head = current.getPrevious();
                 current.setPrevious(current.getNext());
                 current.setNext(head);
-                current = current.getPrevious();
+
+                if (Objects.isNull(current.getPrevious()))
+                {
+                    head = current;
+                    break;
+                }
+                else
+                {
+                    current = current.getPrevious();
+                }
             }
 
             return head;
